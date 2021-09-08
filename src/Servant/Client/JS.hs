@@ -88,7 +88,6 @@ import           Network.HTTP.Types                    (Header, HttpVersion,
 import           Servant.Client.Core                   (Request,
                                                         RequestBody (RequestBodyBS, RequestBodyLBS, RequestBodySource),
                                                         RequestF (Request),
-                                                        ResponseF (Response),
                                                         RunClient (..),
                                                         RunStreamingClient (..),
                                                         clientIn)
@@ -136,7 +135,7 @@ instance Alt ClientM where
   a <!> b = a `catchError` const b
 
 instance RunClient ClientM where
-  runRequest = fetch Nothing
+  runRequestAcceptStatus _ = fetch Nothing
   throwClientError = throwError
 
 instance RunStreamingClient ClientM where
